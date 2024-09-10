@@ -1,14 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const SignupModel = require("./models/signup.models");
 
 const app = express();
 
 app.use(express.json());
+dotenv.config();
 app.use(cors);
 
-mongoose.connect("mongodb://127.0.0.1:27017/user");
+const PORT = process.env.PORT || 7000;
+const MONGOURL = process.env.MONGO_URL;
 
 app.post("/", (req, res) => {
   SignupModel.create(req.body)
@@ -16,6 +19,12 @@ app.post("/", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-app.listen("5000", () => {
-  console.log("server satrt at localhost:5000");
-});
+mongoose
+  .connect(MONGOURL)
+  .then(() => {
+    console.log("data base connected");
+    app.listen(PORT, () => {
+      console.log(`server is running at localhost:${PORT}`);
+    });
+  })
+  .catch((error) => console.log(error));
