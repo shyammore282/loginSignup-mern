@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const SignupModel = require("./models/signup.models");
+const Signup = require("./models/signup.models");
+// const controllers = require("./controllers/signup.controllers");
 
 const app = express();
 
@@ -13,12 +14,18 @@ app.use(cors);
 const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
 
-app.post("/", (req, res) => {
-  SignupModel.create(req.body)
+// app.route("/signup").get(controllers.Signup);
+
+// app.get("/signup", () => {
+//   controllers.Signup;
+// });
+app.post("/signup", (req, res) => {
+  Signup.create(req.body)
     .then((user) => res.json(user))
     .catch((err) => res.json(err));
 });
 
+// app.post("/signup", (req, res) => {});
 mongoose
   .connect(MONGOURL)
   .then(() => {

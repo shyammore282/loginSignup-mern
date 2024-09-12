@@ -16,9 +16,13 @@ const signupSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
 
-const SignupModel = mongoose.model("Signup", signupSchema);
-module.exports = SignupModel;
+const Signup = new mongoose.model("Signup", signupSchema);
+module.exports = Signup;
