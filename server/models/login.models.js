@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 
-const signupSchema = new mongoose.Schema(
+const loginSchema = new mongoose.Schema(
   {
-    name: {
+    userName: {
       type: String,
       required: true,
+      unique: true,
+      lowercase: true,
     },
     email: {
       type: String,
@@ -16,14 +18,10 @@ const signupSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
   },
   { timestamps: true }
 );
 
-const Signup = new mongoose.model("Signup", signupSchema);
+const Login = new mongoose.model("Login", loginSchema);
 
-module.exports = Signup;
+module.exports = Login;

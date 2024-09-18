@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const Signup = require("./models/signup.models");
+const Login = require("./models/login.models");
 // const controllers = require("./controllers/signup.controllers");
 
 const app = express();
@@ -23,6 +24,10 @@ app.post("/signup", (req, res) => {
   Signup.create(req.body)
     .then((user) => res.json(user))
     .catch((err) => res.json(err));
+});
+
+app.post("login", (req, res) => {
+  Login.create(req.body);
 });
 
 // app.post("/signup", (req, res) => {});
