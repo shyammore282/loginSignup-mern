@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const Signup = require("./models/signup.models");
-const Login = require("./models/login.models");
+const Signup = require("./modules/signup.modules");
+const Login = require("./modules/login.modules");
 // const controllers = require("./controllers/signup.controllers");
 
 const app = express();
@@ -26,15 +26,17 @@ app.post("/signup", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-app.post("login", (req, res) => {
-  Login.create(req.body);
+app.post("/login", (req, res) => {
+  Login.create(req.body)
+    .then((user) => res.json(user))
+    .catch((err) => res.json(err));
 });
 
 // app.post("/signup", (req, res) => {});
 mongoose
   .connect(MONGOURL)
   .then(() => {
-    console.log("data base connected");
+    console.log("data base connected succesfully");
     app.listen(PORT, () => {
       console.log(`server is running at localhost:${PORT}`);
     });
